@@ -1,4 +1,4 @@
-import { axiosWithAuth } from "../utils";
+// import { axiosWithAuth } from "../utils";
 
 // action types
 export const REGISTER_REQUEST = "REGISTER_REQUEST";

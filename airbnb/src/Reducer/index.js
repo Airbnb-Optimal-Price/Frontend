@@ -5,7 +5,7 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE
-} from "../actions";
+} from '../Action';
 
 const initialState = {
   user: [],
@@ -30,4 +30,4 @@ export const reducer = (state = initialState, action) => {
     default:
       return state;
   }
-};
+}
