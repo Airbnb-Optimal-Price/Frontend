@@ -41,25 +41,25 @@ import {axiosWithAuth} from '../utils';
                     <Field
                         type='text'
                        
-                        name='roomType'
+                        name='room_type'
                         id='roomType'
                         placeholder='Condo'
                     />
-                        {touched.roomType && errors.roomType && (
-                            <h5>{errors.roomType}</h5>
+                        {touched.room_type && errors.room_type && (
+                            <h5>{errors.room_type}</h5>
                         )}
                 </label>
                 <label className='nights'>
                         {" "}    Nights Available {" "}
                     <Field
                         type='number'
-                        name='nights'
+                        name='number_nights'
                         id='nights'
                         min='0'
                         placeholder='3'
                     />
-                        {touched.nights && errors.nights && (
-                            <h5>{errors.nights}</h5>
+                        {touched.number_nights && errors.number_nights && (
+                            <h5>{errors.number_nights}</h5>
                         )}
                 </label>
                 <button type='submit'>Submit</button>
@@ -77,29 +77,30 @@ import {axiosWithAuth} from '../utils';
         )
     }
     const FormikDashBoard = withFormik({
-        mapPropsToValues({ name, roomType, nights }) {
+        mapPropsToValues({ name, room_type, number_nights }) {
             return {
                 name: name || '',
-                roomType: roomType || '',
-                nights: nights || ''
+                room_type: room_type || '',
+                number_nights: number_nights || ''
                 
             }
         }, 
         validationSchema: Yup.object().shape({
             name: Yup.string().required('Enter the name for Your Airbnb'),
-            roomType: Yup.string().required('What type of Airbnb is this?'),
-            nights: Yup.string().required('How many nights are available')
+            room_type: Yup.string().required('What type of Airbnb is this?'),
+            number_nights: Yup.string().required('How many nights are available')
             
         }),
         handleSubmit(values, {setStatus}){
-          
-            const listing = {...values, id: Date.now()}
-            console.log(listing)
+            const cred = localStorage.getItem('token');
+            const listing = {...values, users_id: Date.now()}
+            console.log(cred)
+
             axiosWithAuth()
-                .post(`/api/listings/${listing.id}/`, values)
+                .post(`/api/listings/${listing.users_id}`, cred,  listing, )
                 .then(res => {
                     setStatus(res.data);
-                    
+                    console.log(res)
                 })
                 .catch(err => {
                     console.log(err)

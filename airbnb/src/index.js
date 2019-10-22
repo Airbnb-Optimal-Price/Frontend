@@ -9,12 +9,16 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { reducer } from "./Reducer";
 
-
+//Create the store to hold the data
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>,
   document.getElementById("root")
 );
 
