@@ -1,9 +1,12 @@
 import React from "react";
 import chart from "../images/chart.png";
+import Navbar from "./NavBar";
+import { Link } from 'react-router-dom';
 
 const Landing = () => {
   return (
     <>
+    <Navbar />
     <div className="hero">
       <div className="container">
         <h2>Increase revenue with <mark>data-driven</mark> pricing</h2>
@@ -11,7 +14,7 @@ const Landing = () => {
           We utilize market data to ensure our price recommendations maximize
           revenue and occupancy for our hosts.
         </p>
-        <a href="#" className="myButton">Sign Up</a>
+        <Link to="/registration" className="myButton">Sign Up</Link>
       </div>
     </div>
     <div className="wrapper">
