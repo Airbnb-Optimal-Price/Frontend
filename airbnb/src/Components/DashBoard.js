@@ -168,7 +168,7 @@ import {axiosWithAuth} from '../utils';
                         
                         </Field>
                         {touched.minimum_nights && errors.minimum_nights  && (
-                            <h5>{console.log(errors)}</h5>
+                            <h5>{errors.minimum}</h5>
                         )}
                     </label>
                     <label className='neighborhood'>
@@ -294,6 +294,7 @@ import {axiosWithAuth} from '../utils';
             
         }),
         handleSubmit(values, {setStatus}){
+            console.log(values)
            const listings = {...values, users_id: localStorage.getItem('id')}
           console.log(values)
 
