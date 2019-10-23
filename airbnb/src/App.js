@@ -3,13 +3,14 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Landing from "./Components/LandingPage";
 import Registration from "./Components/Registration";
 import Login from "./Components/Login";
-
+import Dash from './Components/DashBoard';
 import "./App.css";
 
 function App() {
   return (
     <Router>
       <div className="App">
+      <Dash/>
         <Switch>
           <Route exact path="/" component={Landing}/>
           <Route path="/registration" component={Registration}/>
@@ -17,6 +18,7 @@ function App() {
         </Switch>
       </div>
     </Router>
+
   );
 }
 
