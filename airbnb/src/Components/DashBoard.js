@@ -6,7 +6,7 @@ import {axiosWithAuth} from '../utils';
 
     const Div = styled.div`
     
-    height: 500px;
+    height: 800px;
    
     #one{
 
@@ -18,13 +18,14 @@ import {axiosWithAuth} from '../utils';
     `;
 
 
-    function DashBoard ({touched, errors, status, values}) {
+    function DashBoard ({touched, errors, status, values, changeHandler}) {
 
         const [air, setAir] = useState([]);
         useEffect(()=>{
             status && setAir(air => [...air, status]);
         },[status]);
 
+        
         return (
         <Div>
             <Form id='one'>
@@ -67,8 +68,8 @@ import {axiosWithAuth} from '../utils';
                         {" "}  Bathrooms {" "}
                         <Field
                             component='select'
-                            name='bathroom'
-                            id='bathroom'
+                            name='bathrooms'
+                            id='bathrooms'
                         >
                         <option>Select</option>
                         <option value='1.0'>1</option>
@@ -76,6 +77,9 @@ import {axiosWithAuth} from '../utils';
                         <option value='2.0'>2</option>
                        
                         </Field>
+                        {touched.bathrooms && errors.bathrooms && (
+                            <h5>{errors.bathrooms}</h5>
+                        )}
                 </label>
                     <label className='bathrooms'>
                         {" "}  Bedrooms {" "}
@@ -91,6 +95,9 @@ import {axiosWithAuth} from '../utils';
                             <option value='3.0'>3</option>
 
                         </Field>
+                        {touched.bedrooms && errors.bedrooms && (
+                            <h5>{errors.bedrooms}</h5>
+                        )}
                     </label>
                 <label className='bathrooms'>
                         {" "}  Beds {" "}
@@ -107,6 +114,9 @@ import {axiosWithAuth} from '../utils';
                         <option value='4.0'>4</option>
                        
                         </Field>
+                        {touched.beds && errors.beds && (
+                            <h5>{errors.beds}</h5>
+                        )}
                 </label>
                 <label className='bathrooms'>
                         {" "}  Bed Types {" "}
@@ -124,6 +134,9 @@ import {axiosWithAuth} from '../utils';
                         <option value='airbed'>Airbed</option>
                        
                         </Field>
+                        {touched.bed_type && errors.bed_type && (
+                            <h5>{errors.bed_type}</h5>
+                        )}
                 </label>
                 <label className='instant'>
                     Instant Bookable
@@ -132,6 +145,7 @@ import {axiosWithAuth} from '../utils';
                     type='checkbox'
                     name='instant_bookable'
                     id='instant_bookable'
+                    onChange={changeHandler}
                     checked={values.instant_bookable}
                     />
 
@@ -154,7 +168,7 @@ import {axiosWithAuth} from '../utils';
                         
                         </Field>
                         {touched.minimum_nights && errors.minimum_nights  && (
-                            <h5>{errors.minimum_nights }</h5>
+                            <h5>{console.log(errors)}</h5>
                         )}
                     </label>
                     <label className='neighborhood'>
@@ -183,14 +197,14 @@ import {axiosWithAuth} from '../utils';
                         )}
                     </label>
                 
-                <label className='roomType'>
+                <label className='room_type'>
                         {" "}   Room Type {" "}
                     <Field
                         component='select'
                        
                         name='room_type'
                         id='room_type'
-                        placeholder='Condo'
+                        
                     >
                     <option>Select</option>
                     <option value='private room'>
@@ -213,6 +227,7 @@ import {axiosWithAuth} from '../utils';
                     <Field
                             type='checkbox'
                             name='wifi'
+                            onChange={changeHandler}
                             checked={values.wifi}
                            
                         />
@@ -233,30 +248,48 @@ import {axiosWithAuth} from '../utils';
         )
     }
     const FormikDashBoard = withFormik({
-        mapPropsToValues({ name, accommodates, bathroom, bedroom, beds, bed_types, instant_bookable, minimum_nights, neighborhood, room_type  }) {
+        mapPropsToValues({ name, accommodates, bathrooms, bedrooms, beds, bed_type, instant_bookable, minimum_nights, neighborhood, room_type, wifi  }) {
             return {
                 name: name || '',
                 accommodates: accommodates || '',
-                bathroom: bathroom || '',
-                bedroom: bedroom || '',
+                bathrooms: bathrooms || '',
+                bedrooms: bedrooms || '',
                 beds: beds || '',
-                bed_types: bed_types || '',
+                bed_type: bed_type || '',
                 instant_bookable: instant_bookable || false,
                 room_type: room_type || '',
                 neighborhood: neighborhood || '',
-                minimum_nights: minimum_nights || false
+                minimum_nights: minimum_nights || '',
+                wifi: wifi || false
                 
             }
         }, 
         validationSchema: Yup.object().shape({
-            name: Yup.string().required('Enter the name for Your Airbnb'),
+            name: Yup.string().required('Enter the name of Your Airbnb'),
             accommodates: Yup.string()
-                .oneOf(['1', '2', '3', '4', '5', '6', '7', '8'])
-                .required('How many can it accommodate?'),
-                bathroom: Yup.string()
-                    .oneOf(['1.0', '1.5','2.0'])
-                    .required(),
-                    
+                        .oneOf(['1', '2', '3', '4', '5', '6', '7', '8'])
+                        .required('How many can it accommodate?'),
+            bathrooms: Yup.string()
+                        .oneOf(['1.0', '1.5','2.0'])
+                        .required('choose the number of bathrooms'),
+            bedrooms: Yup.string()
+                        .oneOf(['0.0', '1.0', '2.0', '3.0'])
+                        .required('Choose the number of bedrooms'),
+            beds: Yup.string()
+                        .oneOf(['1.0', '2.0', '3.0'])
+                        .required('Choose the number of beds'),
+            bed_type: Yup.string()
+                        .oneOf(['real bed', 'pull-out sofa', 'futon', 'couch', 'airbed'])
+                        .required('Which type of bed do you have?'),    
+            minimum_nights: Yup.string()
+                        .oneOf(['1', '2','3','4','5','6','7']).required('choose the minimum of nights'),
+            neighborhood: Yup.string()
+                        .oneOf(['friedrichshain-kreuzberg', 'mitte', 'pankow', 'neukolln'])
+                        .required('what neighborhood is it located in'),
+            room_type: Yup.string()
+                        .oneOf(['private room', 'entire home/apt', 'shared room'])
+                        .required('choose the type of room')
+
             
             
         }),
