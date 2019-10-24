@@ -1,12 +1,16 @@
 import React from 'react';
+import logo from '../images/logo.png'
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return ( 
     <header>
       <nav>
-        <h1 className="logo"><Link to="/">Airbnb Optimal Price</Link></h1>
+        <Link  to="/"><img className="logo" src={logo} alt="logo"/></Link>
       <ul>
+        <li>
+            <a href="#DATA-DRIVEN">How It Works</a>
+          </li>
           <li>
             <Link to="/login">Login</Link>
           </li>

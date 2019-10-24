@@ -24,7 +24,7 @@ const Registration = props => {
     <div class="form__wrapper">
       <div class="form__container">
         <h1>Create an account</h1>
-        <form onSubmit={handleSubmit}>
+        <form className="Form_login_sign_up" onSubmit={handleSubmit}>
           <input
             className="input"
             type="text"

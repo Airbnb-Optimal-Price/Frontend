@@ -22,7 +22,7 @@ const Login = props => {
     <div className="form__wrapper">
       <div className="form__container">
         <h1>Welcome Back <span role="img" aria-label="img">👋</span></h1>
-        <form onSubmit={handleSubmit}>
+        <form className="Form_login_sign_up" onSubmit={handleSubmit}>
           <input
             className="input"
             type="text"

@@ -72,9 +72,11 @@ const ListingCards = ({ listing, updateListing}) => {
         <p>Label: {listing.label}</p>
         <p>Accomodates: {listing.accomodates}</p>
         <p>Bathrooms: {listing.bathrooms}</p>
+        <p>Bedrooms: {listing.bedrooms}</p>
         <p>Beds: {listing.beds}</p>
         <p>Bed Type: {listing.bed_type}</p>
         <p>Instant Bookable: {listing.instant_bookable}</p>
+        <p>Minimum Nights: {listing.minimum_nights}</p>
         <p>Neighborhood: {listing.neighborhood}</p>
         <p>Room Type: {listing.room_type}</p>
         <p>Wifi: {listing.wifi}</p>
