@@ -5,13 +5,13 @@ const Navbar = () => {
   return ( 
     <header>
       <nav>
-        <h1 className="logo">Airbnb Optimal Price</h1>
+        <h1 className="logo"><Link to="/">Airbnb Optimal Price</Link></h1>
       <ul>
           <li>
-            <Link>Login</Link>
+            <Link to="/login">Login</Link>
           </li>
           <li>
-            <Link>Sing up</Link>
+            <Link to="/registration">Sign up</Link>
           </li>
         </ul>
       </nav>

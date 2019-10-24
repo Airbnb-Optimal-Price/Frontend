@@ -5,7 +5,7 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE
-} from '../Action';
+} from "../Action";
 
 const initialState = {
   user: [],
@@ -21,13 +21,37 @@ export const reducer = (state = initialState, action) => {
         isLoggedIn: false,
         error: ""
       };
-      case REGISTER_SUCCESS:
-        return {
-          ...state,
-          isLoggedIn: false,
-          error: ""
-        };
+    case REGISTER_SUCCESS:
+      return {
+        ...state,
+        isLoggedIn: false,
+        error: ""
+      };
+    case REGISTER_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        isLoggedIn: false
+      };
+    case LOGIN_REQUEST:
+      return {
+        ...state,
+        isLoggedIn: false,
+        error: ""
+      };
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        isLoggedIn: true,
+        error: ""
+      };
+    case LOGIN_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        isLoggedIn: false
+      };
     default:
       return state;
   }
-}
+};
