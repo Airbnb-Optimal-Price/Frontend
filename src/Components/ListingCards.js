@@ -6,11 +6,9 @@ import axios from "axios";
 const ListingCards = ({ listing, updateListing}) => {
   const [editing, setEditing] = useState(false);
   const [listingToEdit, setListingToEdit] = useState()
-  // const [price, setPrice] = useState();
+  const [price, setPrice] = useState({});
 
-  const handleChange = event => {
-    setListingToEdit({ ...listingToEdit, [event.target.name]: event.target.value });
-  };
+  console.log(price)
 
   const editListing = listing => {
     console.log("Clicked", listing);
@@ -28,19 +26,21 @@ const ListingCards = ({ listing, updateListing}) => {
     .catch(err => console.log(err.response))
   };
   
-  // useEffect(() => {
-  //   const values = listing;
-  //   const pricing = { ...values};
-  //   delete pricing["label"];
-  //   delete pricing["users_id"];
-  //   delete pricing["id"];
-  //   const info = JSON.stringify(pricing)
-  //   console.log(info)
-  //   axiosWithAuth()
-  //     .post(`https://airbnb-predictor.herokuapp.com/request`, pricing)
-  //     .then(res => console.log(res.data))
-  //     .catch(err => console.log(err.response));
-  // }, []);
+  useEffect(() => {
+    const values = listing;
+    const pricing = { ...values};
+    delete pricing["label"];
+    delete pricing["users_id"];
+    delete pricing["id"];
+    console.log(pricing)
+    axios
+      .post(`https://airbnb-predictor.herokuapp.com/request`, pricing)
+      .then(res => { 
+        console.log(res.data)
+        return setPrice(res.data)
+      })
+      .catch(err => console.log(err.response));
+  }, []);
 
   const updateDelete = () => {
     axiosWithAuth()
@@ -78,7 +78,7 @@ const ListingCards = ({ listing, updateListing}) => {
         <p>Neighborhood: {listing.neighborhood}</p>
         <p>Room Type: {listing.room_type}</p>
         <p>Wifi: {listing.wifi}</p>
-        <p>Optimal Price: </p>
+        <p>Optimal Price: {price.prediction}</p>
       </div>
       <div>
         {editing && 
