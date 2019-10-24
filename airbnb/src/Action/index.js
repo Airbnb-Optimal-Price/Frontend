@@ -34,10 +34,11 @@ export const userLogin = user => dispatch => {
   dispatch({ type: LOGIN_REQUEST })
   // do some async action and dispatch an error or success action
   axiosWithAuth()
-    .post(`https://airbnb-optimal.herokuapp.com/api/auth/login`, user)
+    .post(`/api/auth/login`, user)
     .then(res => {
-      console.log("POST Request Response: ", res)
+      console.log("POST Request Response: ", res);
       localStorage.setItem('token', res.data.token);
+      localStorage.setItem('id', res.data.users_id)
       dispatch({ type: LOGIN_SUCCESS, payload: res.data })
     })
     .catch(err => dispatch({ type: LOGIN_FAILURE, payload: err.payload }));

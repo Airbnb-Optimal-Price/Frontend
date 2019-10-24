@@ -15,6 +15,7 @@ const Registration = props => {
     console.log(values);
     //dispatch function
     props.newUser(values);
+    props.history.push('/login');
   }
 
   return (
