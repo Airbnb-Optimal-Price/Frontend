@@ -13,15 +13,15 @@ const Login = props => {
     console.log(values);
     //dispatch function
     props.userLogin(values)
-    props.history.push('/');
+    props.history.push('/dashboard');
   }
 
   return (
     <>
     <Navbar />
-    <div class="form__wrapper">
-      <div class="form__container">
-        <h1>Welcome Back 👋</h1>
+    <div className="form__wrapper">
+      <div className="form__container">
+        <h1>Welcome Back <span role="img" aria-label="img">👋</span></h1>
         <form onSubmit={handleSubmit}>
           <input
             className="input"
@@ -41,7 +41,7 @@ const Login = props => {
             placeholder="Password"
             required
           />
-          <button type="submit">Sign Up</button>
+          <button type="submit">Login</button>
         </form>
       </div>
       <p>New here?<Link to="/registration">Sign Up</Link></p>
